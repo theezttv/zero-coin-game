@@ -20,6 +20,11 @@ public class Player {
         y = Math.max(0, Math.min(y, canvasHeight - size));
     }
 
+    public boolean touches(double otherX, double otherY, double otherSize) {
+        return x + size >= otherX && x <= otherX + otherSize
+                && y + size >= otherY && y <= otherY + otherSize;
+    }
+
     public void draw(GameApp app) {
         app.fill(Color.rgb(100, 149, 237));
         app.rect(x, y, size, size);
