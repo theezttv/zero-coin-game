@@ -99,3 +99,10 @@ Run App does not require GitHub sign-in. See Zero Troubleshooting for help with 
 conflicts or failed pushes. See the [repository and push guide](https://github.com/codepetca/zero/blob/main/docs/GETTING-STARTED.md#your-individual-workflow).
 
 Canonical starter source: https://github.com/codepetca/zero-starter
+
+
+Refactoring
+
+- Cleaned up the code by splitting methods into individual classes. 
+
+view() gives the calling class an Element; setScore(int) displays the supplied score; setCaption(String) changes the caption while retaining that displayed value. Existing new ScoreDisplay() calls still work, as do view() and setScore(int); this is a compatible improvement

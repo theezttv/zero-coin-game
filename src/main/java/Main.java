@@ -12,19 +12,22 @@ public class Main extends GameApp {
     private Coin[] coins;
     private boolean won;
     private int points;
-    private Label scoreLabel;
+    private ScoreDisplay score;
     private Label message;
+    private PlayerInput input;
     @Override public void settings() {
         padding(20);
         size(640, 400);
     }
 
     @Override public void setup() {
-        scoreLabel = new Label("");
+        input = new PlayerInput(this);
+        score = new ScoreDisplay();
+        score.setCaption("Score");
         message = new Label("");
         var restartButton = new Button("Restart");
         restartButton.onClick(() -> restart());
-        controls(new Row(12, scoreLabel, message, restartButton));
+        controls(new Row(12, score.view(), message, restartButton));
         restart();
     }
 
@@ -37,25 +40,22 @@ public class Main extends GameApp {
         won = false;
         message.setText("Collect all " + coins.length + " coins.");
         points = 0;
-        scoreLabel.setText("Score: 0");
+        score.setScore(points);
+        score.setCaption("Coins");
         message.setText("Collect the gold square.");
         showGame();
     }
 
     @Override public void update(double seconds) {
         if (won) return;
-        int horizontal = 0;
-        int vertical = 0;
-        if (keyDown(Key.LEFT)) horizontal--;
-        if (keyDown(Key.RIGHT)) horizontal++;
-        if (keyDown(Key.UP)) vertical--;
-        if (keyDown(Key.DOWN)) vertical++;
+        int horizontal = input.horizontal();
+        int vertical = input.vertical();
         player.update(horizontal, vertical, seconds, width(), height());
         for (Coin each : coins) {
             if (!each.isCollected() && each.touches(player)) {
                 each.collect();
                 points++;
-                scoreLabel.setText("Score: " + points);
+                score.setScore(points);
             }
         }
         if (points == coins.length) {
@@ -68,7 +68,7 @@ public class Main extends GameApp {
         background(Color.rgb(240, 248, 255));
         fill(Color.rgb(47, 79, 79));
         textSize(20);
-        text("Click the canvas, then hold the arrow keys.", 20, 30);
+        text("Click the canvas, then hold arrows or WASD.", 20, 30);
         for (Coin each : coins) each.draw(this);
         player.draw(this);
     }
