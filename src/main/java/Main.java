@@ -23,6 +23,7 @@ public class Main extends GameApp {
     @Override public void setup() {
         input = new PlayerInput(this);
         score = new ScoreDisplay();
+        score.setCaption("Score");
         message = new Label("");
         var restartButton = new Button("Restart");
         restartButton.onClick(() -> restart());
@@ -40,6 +41,7 @@ public class Main extends GameApp {
         message.setText("Collect all " + coins.length + " coins.");
         points = 0;
         score.setScore(points);
+        score.setCaption("Coins");
         message.setText("Collect the gold square.");
         showGame();
     }
