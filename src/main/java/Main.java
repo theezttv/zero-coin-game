@@ -68,7 +68,7 @@ public class Main extends GameApp {
         background(Color.rgb(240, 248, 255));
         fill(Color.rgb(47, 79, 79));
         textSize(20);
-        text("Click the canvas, then hold the arrow keys.", 20, 30);
+        text("Click the canvas, then hold arrows or WASD.", 20, 30);
         for (Coin each : coins) each.draw(this);
         player.draw(this);
     }
