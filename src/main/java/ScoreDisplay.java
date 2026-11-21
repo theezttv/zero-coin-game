@@ -6,6 +6,7 @@ public class ScoreDisplay {
     private String caption = "Score";
     private int points;
 
+    //displays the supplied score
     public void setScore(int points) {
         this.points = points;
         refresh();
@@ -15,6 +16,7 @@ public class ScoreDisplay {
         label.setText(caption + ": " + points);
     }
 
+    //changes the caption while retaining that displayed value
     public void setCaption(String caption) {
         if (caption == null) {
             throw new IllegalArgumentException("Score caption must not be null.");
@@ -23,6 +25,7 @@ public class ScoreDisplay {
         refresh();
     }
 
+    //gives calling class an Element
     public Element view() {
         return label;
     }
