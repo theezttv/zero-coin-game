@@ -14,12 +14,14 @@ public class Main extends GameApp {
     private int points;
     private Label scoreLabel;
     private Label message;
+    private PlayerInput input;
     @Override public void settings() {
         padding(20);
         size(640, 400);
     }
 
     @Override public void setup() {
+        input = new PlayerInput(this);
         scoreLabel = new Label("");
         message = new Label("");
         var restartButton = new Button("Restart");
@@ -44,12 +46,8 @@ public class Main extends GameApp {
 
     @Override public void update(double seconds) {
         if (won) return;
-        int horizontal = 0;
-        int vertical = 0;
-        if (keyDown(Key.LEFT)) horizontal--;
-        if (keyDown(Key.RIGHT)) horizontal++;
-        if (keyDown(Key.UP)) vertical--;
-        if (keyDown(Key.DOWN)) vertical++;
+        int horizontal = input.horizontal();
+        int vertical = input.vertical();
         player.update(horizontal, vertical, seconds, width(), height());
         for (Coin each : coins) {
             if (!each.isCollected() && each.touches(player)) {
