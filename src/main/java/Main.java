@@ -1,12 +1,11 @@
-#no tutorial practise libraries, try later
-
-
 import zero.Key;
 import zero.Color;
 import zero.GameApp;
 import zero.ui.Button;
 import zero.ui.Label;
 import zero.ui.Row;
+
+//no libraries available, to be resolved later
 
 public class Main extends GameApp {
     private Player player;
