@@ -1,3 +1,4 @@
+import javafx.scene.image.Image;
 import zero.Color;
 import zero.GameApp;
 
@@ -26,7 +27,9 @@ public class Player {
     }
 
     public void draw(GameApp app) {
-        app.fill(Color.rgb(100, 149, 237));
-        app.rect(x, y, size, size);
+        //app.fill(Color.rgb(56, 68, 36));
+        //app.rect(x, y, size, size)
+        var tuff = app.loadImage("/player.png");
+        app.image(tuff, x, y, size, size);
     }
 }

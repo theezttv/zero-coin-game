@@ -5,6 +5,9 @@ import zero.ui.Button;
 import zero.ui.Label;
 import zero.ui.Row;
 
+import zero.Sound;
+
+//no libraries available, to be resolved later
 
 public class Main extends GameApp {
     private Player player;
@@ -15,6 +18,10 @@ public class Main extends GameApp {
     private ScoreDisplay score;
     private Label message;
     private PlayerInput input;
+
+    
+    private Sound chime;
+
     @Override public void settings() {
         padding(20);
         size(640, 400);
@@ -43,6 +50,10 @@ public class Main extends GameApp {
         score.setScore(points);
         score.setCaption("Coins");
         message.setText("Collect the gold square.");
+
+        chime = loadSound("/chime.wav");
+        chime.setVolume(0.75);
+
         showGame();
     }
 
@@ -53,6 +64,10 @@ public class Main extends GameApp {
         player.update(horizontal, vertical, seconds, width(), height());
         for (Coin each : coins) {
             if (!each.isCollected() && each.touches(player)) {
+
+                chime.stop();
+                chime.play();
+
                 each.collect();
                 points++;
                 score.setScore(points);
