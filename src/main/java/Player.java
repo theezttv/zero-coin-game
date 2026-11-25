@@ -1,35 +1,24 @@
-import javafx.scene.image.Image;
+import zero.Actor;
 import zero.Color;
-import zero.GameApp;
 
-public class Player {
-    private double x;
-    private double y;
-    private final double size = 24;
-    private final double speed = 180;
-
-    public Player(double startX, double startY) {
-        x = startX;
-        y = startY;
+public class Player extends Actor {
+    public Player(double x, double y) {
+        super(x, y);
+        setSize(24, 24);
     }
 
-    public void update(int horizontal, int vertical, double seconds,
-                       double canvasWidth, double canvasHeight) {
-        x += horizontal * speed * seconds;
-        y += vertical * speed * seconds;
-        x = Math.max(0, Math.min(x, canvasWidth - size));
-        y = Math.max(0, Math.min(y, canvasHeight - size));
+    public void steer(int horizontal, int vertical, double seconds) {
+        move(horizontal * 180 * seconds, vertical * 180 * seconds);
+        setPosition(Math.max(12, Math.min(x(), 628)), Math.max(12, Math.min(y(), 348)));
     }
 
-    public boolean touches(double otherX, double otherY, double otherSize) {
-        return x + size >= otherX && x <= otherX + otherSize
-                && y + size >= otherY && y <= otherY + otherSize;
+    public boolean touches(double coinX, double coinY, double coinSize) {
+        return x() + 12 >= coinX && x() - 12 <= coinX + coinSize
+                && y() + 12 >= coinY && y() - 12 <= coinY + coinSize;
     }
 
-    public void draw(GameApp app) {
-        //app.fill(Color.rgb(56, 68, 36));
-        //app.rect(x, y, size, size)
-        var tuff = app.loadImage("/player.png");
-        app.image(tuff, x, y, size, size);
+    @Override public void draw() {
+        fill(Color.rgb(100, 149, 237));
+        rect(-12, -12, 24, 24);
     }
 }
