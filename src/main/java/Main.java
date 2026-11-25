@@ -5,6 +5,8 @@ import zero.ui.Button;
 import zero.ui.Label;
 import zero.ui.Row;
 
+//NOTICE: UNMERGED
+
 public class Main extends GameApp {
     private Player player;
     private Coin[] coins;
@@ -26,7 +28,7 @@ public class Main extends GameApp {
 
     public void restart() {
         player = new Player(52, 192);
-        coins = new Coin[] { new Coin(220, 180), new Coin(420, 80), new Coin(540, 300) };
+        coins = new Coin[] { new Coin(232, 192), new Coin(432, 92), new Coin(552, 312) };
         points = 0;
         won = false;
         scoreLabel.setText("Score: 0");
@@ -41,7 +43,8 @@ public class Main extends GameApp {
         player.steer(horizontal, vertical, seconds);
         player.update(seconds);
         for (Coin coin : coins) {
-            if (!coin.isCollected() && coin.touches(player)) {
+            coin.update(seconds);
+            if (!coin.isCollected() && player.touches(coin)) {
                 coin.collect();
                 points++;
                 scoreLabel.setText("Score: " + points);
@@ -55,7 +58,7 @@ public class Main extends GameApp {
 
     @Override public void draw() {
         background(Color.WHITE);
-        for (Coin coin : coins) coin.draw(this);
+        for (Coin coin : coins) draw(coin);
         draw(player);
     }
 

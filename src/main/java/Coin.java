@@ -1,24 +1,21 @@
+import zero.Actor;
 import zero.Color;
-import zero.GameApp;
 
-public class Coin {
-    private final double x;
-    private final double y;
-    private final double size = 24;
+public class Coin extends Actor {
     private boolean collected;
 
     public Coin(double x, double y) {
-        this.x = x;
-        this.y = y;
+        super(x, y);
+        setSize(24, 24);
     }
 
     public boolean isCollected() { return collected; }
-    public boolean touches(Player player) { return player.touches(x, y, size); }
     public void collect() { collected = true; }
 
-    public void draw(GameApp app) {
-        if (collected) return;
-        app.fill(Color.GOLD);
-        app.rect(x, y, size, size);
+    @Override public void draw() {
+        if (!collected) {
+            fill(Color.GOLD);
+            rect(-12, -12, 24, 24);
+        }
     }
 }
